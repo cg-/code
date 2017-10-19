@@ -14,7 +14,7 @@ RUN tar -zxvf /tmp/fb.tar.gz -C /opt
 #RUN cd filebench-1.4.9.1 && libtoolize && aclocal && autoheader && automake --add-missing && autoconf && ./configure && make && make install
 
 # RUN rm -rf /opt/filebench-1.4.9.1
-RUN rm /tmp/tb.tar.gz
+RUN rm /tmp/fb.tar.gz
 
 RUN wget http://www.coker.com.au/bonnie++/bonnie++-1.03e.tgz -O /tmp/bonnie.tgz
 RUN tar -zxvf /tmp/bonnie.tgz -C /opt
