@@ -4,6 +4,7 @@ stages:
   - build
   - test
   - deploy
+  - clean
 
 build:
   stage: build
@@ -15,3 +16,8 @@ deploy:
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab.colegrim.com:4567
     - docker push gitlab.colegrim.com:4567/cg/masters
+
+clean:
+  stage: clean
+  script:
+    - docker rmi gitlab.colegrim.com:4567/cg/masters
