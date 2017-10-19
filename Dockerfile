@@ -29,17 +29,17 @@ RUN cd /opt/filebench-1.4.9.1 && libtoolize && aclocal && autoheader && automake
 RUN rm -rf /opt/filebench-1.4.9.1
 RUN rm /tmp/fb.tar.gz
 
-#RUN cd bonnie++-1.03e && ./configure && make && make install
+# Install bonnie++
+RUN cd /opt/bonnie++-1.03e && ./configure && make && make install
 RUN rm /tmp/bonnie.tgz
-#RUN rm -rf bonnie++-1.03e
-#WORKDIR /home/user/scripts/iozone3_457/src/current
-#RUN make linux-AMD64
-#RUN mv iozone /usr/local/bin/iozone
+RUN rm -rf bonnie++-1.03e
 
-#WORKDIR /home/user/scripts
-#RUN rm -rf iozone3_457
+RUN cd /opt/iozone3_457/src/current && make linux-AMD64 && mv iozone /usr/local/bin/iozone
+
+RUN rm -rf /opt/iozone3_457
 RUN rm /tmp/iozone.tar
-#
+
+
 #WORKDIR /home/user/scripts
 #COPY run.sh /home/user/scripts/run.sh
 #ENTRYPOINT ["/home/user/scripts/run.sh"]
