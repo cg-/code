@@ -21,3 +21,4 @@ clean:
   stage: clean
   script:
     - docker rmi gitlab.colegrim.com:4567/cg/masters
+  when: manual
