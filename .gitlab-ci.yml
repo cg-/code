@@ -10,7 +10,8 @@ build:
   script:
     - docker build -t gitlab.colegrim.com:4567/cg/masters .
 
-# deploy:
-#   stage: deploy
-#   script:
-#     - docker login 
+deploy:
+  stage: deploy
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab.colegrim.com:4567
+    - docker push gitlab.colegrim.com:4567/cg/masters
