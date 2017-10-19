@@ -1,0 +1,19 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t gitlab.colegrim.com:4567/cg/masters .
+
+# deploy:
+#   stage: deploy
+#   script:
+#     - docker login 
