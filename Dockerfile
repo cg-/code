@@ -18,4 +18,4 @@ ADD workloads/fileserver.f /opt/fb_scripts/fileserver.f
 
 RUN mkdir -p /opt/test_scripts
 ADD scripts/run_tests.sh /opt/test_scripts/run_tests.sh
-ENTRYPOINT ["/opt/test_scripts/run_tests.sh"]
+ENTRYPOINT ["/bin/bash", "/opt/test_scripts/run_tests.sh"]
