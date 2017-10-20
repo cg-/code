@@ -9,16 +9,16 @@ stages:
 build:
   stage: build
   script:
-    - docker build -t gitlab.colegrim.com:4567/cg/masters .
+    - docker build -t gitlab.netfla.me:4567/masters/code .
 
 deploy:
   stage: deploy
   script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab.colegrim.com:4567
-    - docker push gitlab.colegrim.com:4567/cg/masters
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab.netfla.me:4567
+    - docker push gitlab.netfla.me:4567/masters/code
 
 clean:
   stage: clean
   script:
-    - docker rmi gitlab.colegrim.com:4567/cg/masters
+    - docker rmi gitlab.netfla.me:4567/masters/code
   when: manual
