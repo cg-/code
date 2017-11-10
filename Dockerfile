@@ -20,4 +20,5 @@ ADD workloads/webproxy.f /opt/fb_scripts/webproxy.f
 
 RUN mkdir -p /opt/test_scripts
 ADD scripts/run_tests.sh /opt/test_scripts/run_tests.sh
-ENTRYPOINT ["/bin/bash", "/opt/test_scripts/run_tests.sh"]
+
+#ENTRYPOINT ["/bin/bash", "/opt/test_scripts/run_tests.sh"]
