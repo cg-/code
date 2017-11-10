@@ -7,4 +7,4 @@
 
 iozone -a -b /results/iozone.xls -f /test/iozone 1>/results/iozone.out 2>/results/iozone.err
 
-bonnie++ -d /test -s 130G -n 0 -m test -f -b -u root
+bonnie++ -d /test -s 24G -n 0 -m test -f -b -u root
