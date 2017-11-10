@@ -25,38 +25,47 @@
 
 set $dir=/tmp
 set $nfiles=10000
-set $meandirwidth=20
-set $meanfilesize=128k
-set $nthreads=50
+set $meandirwidth=1000000
+set $meanfilesize=16k
+set $nthreads=100
+set $meaniosize=16k
 set $iosize=1m
-set $meanappendsize=16k
 
 define fileset name=bigfileset,path=$dir,size=$meanfilesize,entries=$nfiles,dirwidth=$meandirwidth,prealloc=80
 
-define process name=filereader,instances=1
+define process name=proxycache,instances=1
 {
-  thread name=filereaderthread,memsize=10m,instances=$nthreads
+  thread name=proxycache,memsize=10m,instances=$nthreads
   {
-    flowop createfile name=createfile1,filesetname=bigfileset,fd=1
-    flowop writewholefile name=wrtfile1,srcfd=1,fd=1,iosize=$iosize
-    flowop closefile name=closefile1,fd=1
-    flowop openfile name=openfile1,filesetname=bigfileset,fd=1
-    flowop appendfilerand name=appendfilerand1,iosize=$meanappendsize,fd=1
-    flowop closefile name=closefile2,fd=1
-    flowop openfile name=openfile2,filesetname=bigfileset,fd=1
-    flowop readwholefile name=readfile1,fd=1,iosize=$iosize
-    flowop closefile name=closefile3,fd=1
     flowop deletefile name=deletefile1,filesetname=bigfileset
-    flowop statfile name=statfile1,filesetname=bigfileset
+    flowop createfile name=createfile1,filesetname=bigfileset,fd=1
+    flowop appendfilerand name=appendfilerand1,iosize=$meaniosize,fd=1
+    flowop closefile name=closefile1,fd=1
+    flowop openfile name=openfile2,filesetname=bigfileset,fd=1
+    flowop readwholefile name=readfile2,fd=1,iosize=$iosize
+    flowop closefile name=closefile2,fd=1
+    flowop openfile name=openfile3,filesetname=bigfileset,fd=1
+    flowop readwholefile name=readfile3,fd=1,iosize=$iosize
+    flowop closefile name=closefile3,fd=1
+    flowop openfile name=openfile4,filesetname=bigfileset,fd=1
+    flowop readwholefile name=readfile4,fd=1,iosize=$iosize
+    flowop closefile name=closefile4,fd=1
+    flowop openfile name=openfile5,filesetname=bigfileset,fd=1
+    flowop readwholefile name=readfile5,fd=1,iosize=$iosize
+    flowop closefile name=closefile5,fd=1
+    flowop openfile name=openfile6,filesetname=bigfileset,fd=1
+    flowop readwholefile name=readfile6,fd=1,iosize=$iosize
+    flowop closefile name=closefile6,fd=1
+    flowop opslimit name=limit
   }
 }
 
-echo  "File-server Version 3.0 personality successfully loaded"
+echo  "Web proxy-server Version 3.0 personality successfully loaded"
 usage "Usage: set \$dir=<dir>"
-usage "       set \$meanfilesize=<size>     defaults to $meanfilesize"
-usage "       set \$nfiles=<value>      defaults to $nfiles"
-usage "       set \$nthreads=<value>    defaults to $nthreads"
-usage "       set \$meanappendsize=<value>  defaults to $meanappendsize"
+usage "       set \$meanfilesize=<size>    defaults to $meanfilesize"
+usage "       set \$nfiles=<value>     defaults to $nfiles"
+usage "       set \$nthreads=<value>   defaults to $nthreads"
+usage "       set \$meaniosize=<value> defaults to $meaniosize"
 usage "       set \$iosize=<size>  defaults to $iosize"
 usage "       set \$meandirwidth=<size> defaults to $meandirwidth"
 usage "       run runtime (e.g. run 60)"
