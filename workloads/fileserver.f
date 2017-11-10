@@ -23,7 +23,7 @@
 # Use is subject to license terms.
 #
 
-set $dir=/tmp
+set $dir=/test
 set $nfiles=10000
 set $meandirwidth=20
 set $meanfilesize=128k
@@ -60,3 +60,5 @@ usage "       set \$meanappendsize=<value>  defaults to $meanappendsize"
 usage "       set \$iosize=<size>  defaults to $iosize"
 usage "       set \$meandirwidth=<size> defaults to $meandirwidth"
 usage "       run runtime (e.g. run 60)"
+
+run 60

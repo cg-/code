@@ -9,7 +9,7 @@ ADD setup.sh /tmp/setup.sh
 
 RUN /bin/bash /tmp/setup.sh
 
-VOLUME ["/test"]
+VOLUME ["/test", "/results"]
 
 # Install filebench personalities
 RUN mkdir -p /opt/fb_scripts
