@@ -1,11 +1,13 @@
 #!/bin/bash
-for i in 1 2 4 8 16 32 64
+for i in 1 2 4 8
 do
 	for j in $(seq 1 $i)
 	do
 		echo Launched $i-$j
-		mkdir /tmp/$i-$j
-		docker run -v /tmp/$i-$j:/test -v /opt/test/results:/results --rm -e TESTNO=$i-$j --name test$i-$j mine &
+		TESTNO_C=$i-$j
+		export TESTNO_C=$i-$j
+		mkdir /test/$i-$j
+		bash /opt/test/scripts/run_tests_local.sh &
 		pids[${j}]=$!
 	done
 
@@ -16,11 +18,8 @@ do
 
 	for j in $(seq 1 $i)
 	do
-		echo Finished $i-$j
-		rm -rf /tmp/$i-$j
+		rm -rf /test/$i-$j
 	done
-
-	tar -zcvf $(hostname)-results-$i.tgz results/*
+	tar -zcvf $(hostname)-results-$i.tgz /results/*
 	scp -o "StrictHostKeyChecking=no" $(hostname)-results-$i.tgz cgrim@ssh.soe.ucsc.edu:~/results/
 done
-
